@@ -75,9 +75,9 @@ jobs:
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx arm-cpx-wine9"
           fi
 
-          # Add image for AMPDockerfileARMCPxWine9
-          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARMCPxWine9"; then
-            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx-wine9"
+          # Add image for AMPDockerfileARMCPxWineStable
+          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARMCPxWineStable"; then
+            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx-wine-stable"
           fi
 
           # Add image for AMPDockerfileUbuntu
@@ -116,9 +116,9 @@ jobs:
                 echo "Building and pushing ARM CPx image..."
                 docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPx -t greelan/amp:arm-cpx .
                 ;;
-              arm-cpx-wine9)
-                echo "Building and pushing ARM CPx Wine9 image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWine9 -t greelan/amp:arm-cpx-wine9 .
+              arm-cpx-wine-stable)
+                echo "Building and pushing ARM CPx Wine Stable image..."
+                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWineStable -t greelan/amp:arm-cpx-wine-stable .
                 ;;
               ubuntu)
                 echo "Building and pushing Ubuntu image..."
