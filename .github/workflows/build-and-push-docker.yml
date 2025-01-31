@@ -56,37 +56,37 @@ jobs:
           fi
 
           # Add dependencies for AMPDockerFileARM
-          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARM"; then
+          if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARM"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable"
           fi
 
           # Add image for AMPDockerFileARMJava
-          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARMJava"; then
+          if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMJava"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-java"
           fi
 
           # Add image for AMPDockerFileARMPython3
-          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARMPython3"; then
+          if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMPython3"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-python3"
           fi
 
           # Add image for AMPDockerfileARMCPx
-          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARMCPx"; then
+          if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMCPx"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx arm-cpx-wine-stable"
           fi
 
           # Add image for AMPDockerfileARMCPxWineStable
-          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARMCPxWineStable"; then
+          if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMCPxWineStable"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx-wine-stable"
           fi
 
           # Add image for AMPDockerfileUbuntu
-          if echo "$CHANGED_FILES" | grep -q "AMPDockerfileUbuntu"; then
+          if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileUbuntu"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD ubuntu"
           fi
 
           # Add image for AMPDockerfileUptimeKuma2
-          if echo "$CHANGED_FILES" | grep -q -e "AMPDockerfileUptimeKuma2" -e "uk2_ampstart.sh"; then
+          if echo "$CHANGED_FILES" | grep -q -w -e "AMPDockerfileUptimeKuma2" -e "uk2_ampstart.sh"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD uptimekuma2"
           fi
 
