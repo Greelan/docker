@@ -52,12 +52,12 @@ jobs:
 
           # Add all images except uptimekuma2 if ampstart.sh is changed
           if echo "$CHANGED_FILES" | grep -q -w "ampstart.sh"; then
-            IMAGES_TO_BUILD="arm arm-java arm-python3 arm-cpx arm-cpx-wine9 ubuntu"
+            IMAGES_TO_BUILD="arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable ubuntu"
           fi
 
           # Add dependencies for AMPDockerFileARM
           if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARM"; then
-            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm arm-java arm-python3 arm-cpx arm-cpx-wine9"
+            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable"
           fi
 
           # Add image for AMPDockerFileARMJava
@@ -72,7 +72,7 @@ jobs:
 
           # Add image for AMPDockerfileARMCPx
           if echo "$CHANGED_FILES" | grep -q "AMPDockerfileARMCPx"; then
-            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx arm-cpx-wine9"
+            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx arm-cpx-wine-stable"
           fi
 
           # Add image for AMPDockerfileARMCPxWineStable
