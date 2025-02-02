@@ -53,32 +53,23 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
-RUN apt-get update &&\
- DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends\
- build-essential\
- cmake\
- git\
- gcc-arm-linux-gnueabihf\
- libgtk2.0-0:armhf\
- libsdl2-image-2.0-0:armhf &&\
+RUN mkdir -p /usr/share/keyrings &&\
+ wget -qO- "https://pi-apps-coders.github.io/box86-debs/KEY.gpg" | gpg --dearmor -o /usr/share/keyrings/box86-archive-keyring.gpg &&\
+ echo "Types: deb
+URIs: https://Pi-Apps-Coders.github.io/box86-debs/debian
+Suites: ./
+Signed-By: /usr/share/keyrings/box86-archive-keyring.gpg" > /etc/apt/sources.list.d/box86.sources &&\
+ apt update &&\
+ DEBIAN_FRONTEND=noninteractive apt install -y box86-generic-arm:armhf &&\
+ wget -qO- "https://pi-apps-coders.github.io/box64-debs/KEY.gpg" | gpg --dearmor -o /usr/share/keyrings/box64-archive-keyring.gpg &&\
+ echo "Types: deb
+URIs: https://Pi-Apps-Coders.github.io/box64-debs/debian
+Suites: ./
+Signed-By: /usr/share/keyrings/box64-archive-keyring.gpg" > /etc/apt/sources.list.d/box64.sources &&\
+ apt update &&\
+ DEBIAN_FRONTEND=noninteractive apt install -y box64-generic-arm &&\
  apt-get clean &&\
- rm -rf /var/lib/apt/lists/* &&\
- cd / &&\
- git clone https://github.com/ptitSeb/box86.git &&\
- cd box86 &&\
- mkdir build &&\
- cd build &&\
- cmake .. -DARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo &&\
- make -j$(nproc) &&\
- make install &&\
- git clone https://github.com/ptitSeb/box64.git &&\
- cd box64 &&\
- mkdir build &&\
- cd build &&\
- cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo &&\
- make -j$(nproc) &&\
- make install &&\
- rm -rf /box86 /box64
+ rm -rf /var/lib/apt/lists/*
 
 COPY ampstart.sh /
 
