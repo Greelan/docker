@@ -57,13 +57,13 @@ RUN mkdir -p /usr/share/keyrings &&\
  wget -qO- "https://pi-apps-coders.github.io/box86-debs/KEY.gpg" | gpg --dearmor -o /usr/share/keyrings/box86-archive-keyring.gpg &&\
  echo "Types: deb\nURIs: https://Pi-Apps-Coders.github.io/box86-debs/debian\nSuites: ./\nSigned-By: /usr/share/keyrings/box86-archive-keyring.gpg"\
  > /etc/apt/sources.list.d/box86.sources &&\
- apt update &&\
- DEBIAN_FRONTEND=noninteractive apt install -y box86-generic-arm:armhf &&\
  wget -qO- "https://pi-apps-coders.github.io/box64-debs/KEY.gpg" | gpg --dearmor -o /usr/share/keyrings/box64-archive-keyring.gpg &&\
  echo "Types: deb\nURIs: https://Pi-Apps-Coders.github.io/box64-debs/debian\nSuites: ./\nSigned-By: /usr/share/keyrings/box64-archive-keyring.gpg"\
  > /etc/apt/sources.list.d/box64.sources &&\
  apt update &&\
- DEBIAN_FRONTEND=noninteractive apt install -y box64-generic-arm &&\
+ DEBIAN_FRONTEND=noninteractive apt install -y\
+ box86-generic-arm:armhf\
+ box64-generic-arm &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/*
 
