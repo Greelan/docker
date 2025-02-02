@@ -63,6 +63,7 @@ RUN apt-get update &&\
  libsdl2-image-2.0-0:armhf &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/* &&\
+ cd / &&\
  git clone https://github.com/ptitSeb/box86.git &&\
  cd box86 &&\
  mkdir build &&\
@@ -76,7 +77,8 @@ RUN apt-get update &&\
  cd build &&\
  cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo &&\
  make -j$(nproc) &&\
- make install
+ make install &&\
+ rm -rf /box86 /box64
 
 COPY ampstart.sh /
 
