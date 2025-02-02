@@ -36,7 +36,11 @@ RUN dpkg --add-architecture armhf &&\
  libatomic1\
  libpulse-dev\
  liblua5.3-0\
- zlib1g:armhf\
+ libstdc++6\
+ zlib1g\
+ libbz2-1.0:armhf\
+ libcurl3-gnutls:armhf\
+ libsdl2-2.0-0:armhf\
  xdg-user-dirs &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/* &&\
@@ -49,11 +53,31 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
-RUN wget -qO getamp.sh getamp.sh &&\
- chmod +x getamp.sh &&\
- ./getamp.sh configureDarkMagicNew &&\
- rm getamp.sh
- 
+RUN apt-get update &&\
+ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends\
+ build-essential\
+ cmake\
+ git\
+ gcc-arm-linux-gnueabihf\
+ libgtk2.0-0:armhf\
+ libsdl2-image-2.0-0:armhf &&\
+ apt-get clean &&\
+ rm -rf /var/lib/apt/lists/* &&\
+ git clone https://github.com/ptitSeb/box86.git &&\
+ cd box86 &&\
+ mkdir build &&\
+ cd build &&\
+ cmake .. -DARM64=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo &&\
+ make -j$(nproc) &&\
+ make install &&\
+ git clone https://github.com/ptitSeb/box64.git &&\
+ cd box64 &&\
+ mkdir build &&\
+ cd build &&\
+ cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo &&\
+ make -j$(nproc) &&\
+ make install
+
 COPY ampstart.sh /
 
 ENTRYPOINT ["/ampstart.sh"]
