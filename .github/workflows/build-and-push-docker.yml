@@ -13,6 +13,9 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    env:
+      BUILD_ALL_IMAGES: ${{ github.event_name == 'schedule' }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -50,8 +53,8 @@ jobs:
           # Initialize IMAGES_TO_BUILD
           IMAGES_TO_BUILD=""
 
-          # Add all images except uptimekuma2 if ampstart.sh is changed
-          if echo "$CHANGED_FILES" | grep -q -w "ampstart.sh"; then
+          # Add all images except uptimekuma2 if ampstart.sh is changed or BUILD_ALL_IMAGES is true
+          if [ "${{ env.BUILD_ALL_IMAGES }}" = "true" ] || echo "$CHANGED_FILES" | grep -q -w "ampstart.sh"; then
             IMAGES_TO_BUILD="arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable ubuntu"
           fi
 
