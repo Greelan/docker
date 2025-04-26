@@ -47,6 +47,7 @@ RUN wget -q ${LNKA}${DEB_A1} &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/* &&\
  rm -f /usr/bin/wine /usr/bin/wine32 /usr/bin/wineboot /usr/bin/winecfg /usr/bin/wineserver &&\
+ ls -la /opt/wine-devel/bin/ &&\
  ln -sf /opt/wine-devel/bin/wine64 /usr/bin/wine &&\
  ln -sf /opt/wine-devel/bin/wine /usr/bin/wine32 &&\
  ln -sf /opt/wine-devel/bin/wineboot /usr/bin/wineboot &&\
