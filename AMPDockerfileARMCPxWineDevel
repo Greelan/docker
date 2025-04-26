@@ -24,6 +24,7 @@ RUN wget -q ${LNKA}${DEB_A1} &&\
  dpkg-deb -x ${DEB_A2} wine-installer &&\
  dpkg-deb -x ${DEB_A3} wine-installer &&\
  dpkg-deb -x ${DEB_B1} wine-installer &&\
+ ls -la wine-installer/opt/wine* &&\
  mv wine-installer/opt/wine* /opt/wine-devel &&\
  rm -rf wine-installer ${DEB_A1} ${DEB_A2} ${DEB_A3} ${DEB_B1} &&\
  apt-get update &&\
