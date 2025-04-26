@@ -46,11 +46,11 @@ RUN wget -q ${LNKA}${DEB_A1} &&\
  xvfb:arm64 python3:arm64 python3-venv:arm64 winbind:arm64 xauth:arm64 cabextract:arm64 &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/* &&\
- ln -s /opt/wine-devel/bin/wine64 /usr/bin/wine &&\
- ln -s /opt/wine-devel/bin/wine /usr/bin/wine32 &&\
- ln -s /opt/wine-devel/bin/wineboot /usr/bin/wineboot &&\
- ln -s /opt/wine-devel/bin/winecfg /usr/bin/winecfg &&\
- ln -s /opt/wine-devel/bin/wineserver /usr/bin/wineserver &&\
+ ln -sf /opt/wine-devel/bin/wine64 /usr/bin/wine &&\
+ ln -sf /opt/wine-devel/bin/wine /usr/bin/wine32 &&\
+ ln -sf /opt/wine-devel/bin/wineboot /usr/bin/wineboot &&\
+ ln -sf /opt/wine-devel/bin/winecfg /usr/bin/winecfg &&\
+ ln -sf /opt/wine-devel/bin/wineserver /usr/bin/wineserver &&\
  chmod +x /usr/bin/wine /usr/bin/wine32 /usr/bin/wineboot /usr/bin/winecfg /usr/bin/wineserver
 
 COPY ampstart.sh /
