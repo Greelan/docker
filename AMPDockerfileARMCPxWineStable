@@ -12,17 +12,20 @@ ARG tag="-1"
 ARG LNKA="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-amd64/" #amd64-wine links
 ARG DEB_A1="wine-${branch}-amd64_${version}~${dist}${tag}_amd64.deb" #wine64 main bin
 ARG DEB_A2="wine-${branch}_${version}~${dist}${tag}_amd64.deb" #wine64 support files
+ARG DEB_A3="winehq-${branch}_${version}~${dist}${tag}_amd64.deb" #winehq64 bin
 ARG LNKB="https://dl.winehq.org/wine-builds/${id}/dists/${dist}/main/binary-i386/" #i386-wine links
 ARG DEB_B1="wine-${branch}-i386_${version}~${dist}${tag}_i386.deb" #wine_i386 main bin
 
 RUN wget -q ${LNKA}${DEB_A1} &&\
  wget -q ${LNKA}${DEB_A2} &&\
+ wget -q ${LNKA}${DEB_A3} &&\
  wget -q ${LNKB}${DEB_B1} &&\
  dpkg-deb -x ${DEB_A1} wine-installer &&\
  dpkg-deb -x ${DEB_A2} wine-installer &&\
+ dpkg-deb -x ${DEB_A3} wine-installer &&\
  dpkg-deb -x ${DEB_B1} wine-installer &&\
  mv wine-installer/opt/wine* /opt/wine-stable &&\
- rm -rf wine-installer ${DEB_A1} ${DEB_A2} ${DEB_B1} &&\
+ rm -rf wine-installer ${DEB_A1} ${DEB_A2} ${DEB_A3} ${DEB_B1} &&\
  apt-get update &&\
  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends\
  debconf:armhf libasound2:armhf libc6:armhf libglib2.0-0:armhf libgphoto2-6:armhf libgphoto2-port12:armhf\
