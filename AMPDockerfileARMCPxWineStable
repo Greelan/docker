@@ -49,8 +49,12 @@ RUN wget -q ${LNKA}${DEB_A1} &&\
  xvfb:arm64 python3:arm64 python3-venv:arm64 winbind:arm64 xauth:arm64 cabextract:arm64 &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/* &&\
- ln -sf /opt/wine-stable/bin/wine64 /usr/bin/wine &&\
- ln -sf /opt/wine-stable/bin/wine /usr/bin/wine32 &&\
+ if [ -f /opt/wine-stable/bin/wine64 ]; then\
+  ln -sf /opt/wine-stable/bin/wine64 /usr/bin/wine &&\
+  ln -sf /opt/wine-stable/bin/wine /usr/bin/wine32;\
+ else\
+  ln -sf /opt/wine-stable/bin/wine /usr/bin/wine;\
+ fi &&\
  ln -sf /opt/wine-stable/bin/wineboot /usr/bin/wineboot &&\
  ln -sf /opt/wine-stable/bin/winecfg /usr/bin/winecfg &&\
  ln -sf /opt/wine-stable/bin/wineserver /usr/bin/wineserver &&\
