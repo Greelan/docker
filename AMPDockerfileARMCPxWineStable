@@ -58,7 +58,8 @@ RUN wget -q ${LNKA}${DEB_A1} &&\
  ln -sf /opt/wine-stable/bin/wineboot /usr/bin/wineboot &&\
  ln -sf /opt/wine-stable/bin/winecfg /usr/bin/winecfg &&\
  ln -sf /opt/wine-stable/bin/wineserver /usr/bin/wineserver &&\
- chmod +x /usr/bin/wine /usr/bin/wine32 /usr/bin/wineboot /usr/bin/winecfg /usr/bin/wineserver
+ chmod +x /usr/bin/wine /usr/bin/wineboot /usr/bin/winecfg /usr/bin/wineserver &&\
+ if [ -f /usr/bin/wine32]; then chmod +x /usr/bin/wine32; fi
 
 COPY ampstart.sh /
 
