@@ -8,8 +8,3 @@ RUN apt-get update &&\
  python3-venv &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/*
-
-COPY ampstart.sh /
-
-ENTRYPOINT ["/ampstart.sh"]
-CMD []

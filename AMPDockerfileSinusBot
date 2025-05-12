@@ -6,6 +6,3 @@ RUN apt-get update &&\
  less libxss1 libxcomposite1 &&\
  update-ca-certificates &&\
  apt-get clean && rm -rf /var/lib/apt/lists/*
-
-ENTRYPOINT ["/ampstart.sh"]
-CMD []
