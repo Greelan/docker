@@ -4,6 +4,6 @@ RUN mkdir -pm755 /etc/apt/keyrings &&\
  wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key &&\
  wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bookworm/winehq-bookworm.sources &&\
  apt-get update &&\
- apt-get install -y --no-install-recommends winbind xvfb python3 cabextract wine-binfmt &&\
- apt-get install -y --install-recommends winehq-staging &&\
+ apt-get install -y --no-install-recommends winbind xvfb python3 &&\
+ apt-get install -y --install-recommends winehq-staging=8.21~bookworm-1 wine-staging=8.21~bookworm-1 wine-staging-amd64=8.21~bookworm-1 wine-staging-i386=8.21~bookworm-1 cabextract &&\
  apt-get clean && rm -rf /var/lib/apt/lists/*

@@ -46,7 +46,7 @@ RUN wget -q ${LNKA}${DEB_A1} &&\
  libodbc2:arm64 libosmesa6:arm64 libpng16-16:arm64 libsdl2-2.0-0:arm64 libtiff5-dev:arm64 libv4l-0:arm64\
  libxcomposite1:arm64 libxcursor1:arm64 libxfixes3:arm64 libxi6:arm64 libxinerama1:arm64 libxrandr2:arm64\
  libxrender1:arm64 libxslt1.1:arm64 libxxf86vm1:arm64 libvulkan1:arm64\
- xvfb:arm64 python3:arm64 python3-venv:arm64 winbind:arm64 xauth:arm64 cabextract:arm64 &&\
+ xvfb:arm64 python3:arm64 python3-venv:arm64 winbind:arm64 xauth:arm64 cabextract:arm64 wine-binfmt:arm64 &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/* &&\
  ln -sf /opt/wine-devel/bin/wine /usr/bin/wine &&\

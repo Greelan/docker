@@ -55,7 +55,7 @@ jobs:
 
           # Add all images except uptimekuma2 if ampstart.sh is changed or BUILD_ALL_IMAGES is true
           if [ "${{ env.BUILD_ALL_IMAGES }}" = "true" ] || echo "$CHANGED_FILES" | grep -q -w "ampstart.sh"; then
-            IMAGES_TO_BUILD="arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable arm-cpx-wine-devel ubuntu"
+            IMAGES_TO_BUILD="arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable arm-cpx-wine-devel"
           fi
 
           # Add dependencies for AMPDockerFileARM
@@ -72,7 +72,6 @@ jobs:
           if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMPython3"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-python3"
           fi
-
           # Add image for AMPDockerfileARMCPx
           if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMCPx"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx arm-cpx-wine-stable arm-cpx-wine-devel"
@@ -86,6 +85,11 @@ jobs:
           # Add image for AMPDockerfileARMCPxWineDevel
           if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMCPxWineDevel"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx-wine-devel"
+          fi
+
+          # Add image for AMPDockerFileWineStaging
+          if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileWineStaging"; then
+            IMAGES_TO_BUILD="$IMAGES_TO_BUILD wine-staging"
           fi
 
           # Add image for AMPDockerfileUbuntu
@@ -131,6 +135,10 @@ jobs:
               arm-cpx-wine-devel)
                 echo "Building and pushing ARM CPx Wine Devel image..."
                 docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWineDevel -t greelan/amp:arm-cpx-wine-devel .
+                ;;
+              wine-staging)
+                echo "Building and pushing Wine Staging image..."
+                docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileWineStaging -t greelan/amp:wine-staging .
                 ;;
               ubuntu)
                 echo "Building and pushing Ubuntu image..."
