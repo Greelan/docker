@@ -4,7 +4,7 @@
 FROM greelan/amp:arm-cpx
 
 ARG branch="devel"
-ARG version="10.6"
+ARG version="10.7"
 ARG id="debian"
 ARG dist="bookworm"
 ARG tag="-1"
