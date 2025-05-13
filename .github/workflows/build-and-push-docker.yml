@@ -72,6 +72,7 @@ jobs:
           if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMPython3"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-python3"
           fi
+
           # Add image for AMPDockerfileARMCPx
           if echo "$CHANGED_FILES" | grep -q -w "AMPDockerfileARMCPx"; then
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-cpx arm-cpx-wine-stable arm-cpx-wine-devel arm-cpx-wine-9"
