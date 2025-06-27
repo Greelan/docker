@@ -122,49 +122,42 @@ jobs:
         if: env.IMAGES_TO_BUILD != ''
         run: |
           for IMAGE in $IMAGES_TO_BUILD; do
-            case $IMAGE in
-              arm)
-                echo "Building and pushing ARM image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARM -t greelan/amp:arm .
-                ;;
-              arm-java)
-                echo "Building and pushing ARM Java image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMJava -t greelan/amp:arm-java .
-                ;;
-              arm-python3)
-                echo "Building and pushing ARM Python3 image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMPython3 -t greelan/amp:arm-python3 .
-                ;;
-              arm-cpx)
-                echo "Building and pushing ARM CPx image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPx -t greelan/amp:arm-cpx .
-                ;;
-              arm-cpx-wine-stable)
-                echo "Building and pushing ARM CPx Wine Stable image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWineStable -t greelan/amp:arm-cpx-wine-stable .
-                ;;
-              arm-cpx-wine-devel)
-                echo "Building and pushing ARM CPx Wine Devel image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWineDevel -t greelan/amp:arm-cpx-wine-devel .
-                ;;
-              arm-cpx-wine-9)
-                echo "Building and pushing ARM CPx Wine 9 image..."
-                docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWine9 -t greelan/amp:arm-cpx-wine-9 .
-                ;;
-              wine-staging)
-                echo "Building and pushing Wine Staging image..."
-                docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileWineStaging -t greelan/amp:wine-staging .
-                ;;
-              ubuntu)
-                echo "Building and pushing Ubuntu image..."
-                docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileUbuntu -t greelan/amp:ubuntu .
-                ;;
-              uptimekuma2)
-                echo "Building and pushing Uptime Kuma 2 image..."
-                docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileUptimeKuma2 -t greelan/amp:uptimekuma2 .
-                ;;
-              *)
-                exit 1
-                ;;
-            esac
+            (
+              echo "Processing $IMAGE..."
+              case $IMAGE in
+                arm)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARM -t greelan/amp:arm .
+                  ;;
+                arm-java)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMJava -t greelan/amp:arm-java .
+                  ;;
+                arm-python3)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMPython3 -t greelan/amp:arm-python3 .
+                  ;;
+                arm-cpx)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPx -t greelan/amp:arm-cpx .
+                  ;;
+                arm-cpx-wine-stable)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWineStable -t greelan/amp:arm-cpx-wine-stable .
+                  ;;
+                arm-cpx-wine-devel)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWineDevel -t greelan/amp:arm-cpx-wine-devel .
+                  ;;
+                arm-cpx-wine-9)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMCPxWine9 -t greelan/amp:arm-cpx-wine-9 .
+                  ;;
+                wine-staging)
+                  docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileWineStaging -t greelan/amp:wine-staging .
+                  ;;
+                ubuntu)
+                  docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileUbuntu -t greelan/amp:ubuntu .
+                  ;;
+                uptimekuma2)
+                  docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileUptimeKuma2 -t greelan/amp:uptimekuma2 .
+                  ;;
+                *)
+                  echo "Unknown image: $IMAGE"
+                  ;;
+              esac
+            ) || echo "::warning ::Failed to build and push $IMAGE"
           done
