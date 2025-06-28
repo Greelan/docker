@@ -123,7 +123,7 @@ jobs:
         run: |
           for IMAGE in $IMAGES_TO_BUILD; do
             (
-              echo "Processing $IMAGE..."
+              echo "Building and pushing $IMAGE image..."
               case $IMAGE in
                 arm)
                   docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARM -t greelan/amp:arm .
