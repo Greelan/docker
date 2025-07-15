@@ -113,9 +113,9 @@ jobs:
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD uptimekuma2"
           fi
 
-          # Add image for AMPDockerfileARMHangarWineStable
-          if echo "$CHANGED_FILES" | grep -q -w -e "AMPDockerfileARMHangarWineStable"; then
-            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-hangar-wine-stable"
+          # Add image for AMPDockerfileARMHangoverWineStable
+          if echo "$CHANGED_FILES" | grep -q -w -e "AMPDockerfileARMHangoverWineStable"; then
+            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-hangover-wine-stable"
           fi
 
           # Remove duplicate image entries
@@ -160,8 +160,8 @@ jobs:
                 uptimekuma2)
                   docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileUptimeKuma2 -t greelan/amp:uptimekuma2 .
                   ;;
-                arm-hangar-wine-stable)
-                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMHangarWineStable -t greelan/amp:arm-hangar-wine-stable .
+                arm-hangover-wine-stable)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMHangoverWineStable -t greelan/amp:arm-hangover-wine-stable .
                   ;;
                 *)
                   echo "Unknown image: $IMAGE"

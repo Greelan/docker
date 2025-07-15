@@ -1,4 +1,4 @@
-# AMP Dockerfile for Hangar with Wine Stable on ARM
+# AMP Dockerfile for Hangover with Wine Stable on ARM
 
 FROM greelan/amp:arm
 
