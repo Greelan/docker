@@ -1,0 +1,17 @@
+# AMP Dockerfile for Hangar with Wine Stable on ARM
+
+FROM greelan/amp:arm
+
+ARG wine_version="10.0"
+ARG id="debian"
+ARG dist_version="12"
+ARG dist="bookworm"
+ARG hangover=""
+
+RUN wget -q https://github.com/AndreRH/hangover/releases/download/hangover-${wine_version}${hangover:+.}${hangover}/hangover_${wine_version}${hangover:+.}${hangover}_debian${dist_version}_${dist}_arm64.tar &&\
+ tar -xf hangover*.tar &&\ 
+ apt-get update &&\
+ DEBIAN_FRONTEND=noninteractive apt-get install -y ./hangover.*deb &&\
+ rm -rf hangover*.tar hangover.*deb &&\
+ apt-get clean &&\
+ rm -rf /var/lib/apt/lists/*

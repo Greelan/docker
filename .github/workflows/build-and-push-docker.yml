@@ -19,10 +19,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-        
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -36,7 +36,7 @@ jobs:
         id: detect-changes
         run: |
           echo "Checking for changed files..."
-          
+
           # Fetch full history to ensure we have all commits
           git fetch --unshallow || git fetch --all
 
@@ -49,7 +49,7 @@ jobs:
             echo "Comparing against previous commit: ${{ github.event.before }}"
             CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
           fi
-          
+
           # Initialize IMAGES_TO_BUILD
           IMAGES_TO_BUILD=""
 
@@ -57,7 +57,7 @@ jobs:
           if [ "${{ env.BUILD_ALL_IMAGES }}" = "true" ] || echo "$CHANGED_FILES" | grep -q -w "ampstart.sh"; then
             IMAGES_TO_BUILD="arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable arm-cpx-wine-devel arm-cpx-wine-9 wine-staging ubuntu uptimekuma2"
           fi
-          
+
           # Add all relevant images if ampstart.sh is changed
           if echo "$CHANGED_FILES" | grep -q -w "ampstart.sh"; then
             IMAGES_TO_BUILD="arm arm-java arm-python3 arm-cpx arm-cpx-wine-stable arm-cpx-wine-devel arm-cpx-wine-9 ubuntu"
@@ -113,6 +113,11 @@ jobs:
             IMAGES_TO_BUILD="$IMAGES_TO_BUILD uptimekuma2"
           fi
 
+          # Add image for AMPDockerfileARMHangarWineStable
+          if echo "$CHANGED_FILES" | grep -q -w -e "AMPDockerfileARMHangarWineStable"; then
+            IMAGES_TO_BUILD="$IMAGES_TO_BUILD arm-hangar-wine-stable"
+          fi
+
           # Remove duplicate image entries
           IMAGES_TO_BUILD=$(echo $IMAGES_TO_BUILD | tr ' ' '\n' | sort -u | tr '\n' ' ')
 
@@ -154,6 +159,9 @@ jobs:
                   ;;
                 uptimekuma2)
                   docker buildx build --push --progress=plain --platform=linux/amd64 -f AMPDockerfileUptimeKuma2 -t greelan/amp:uptimekuma2 .
+                  ;;
+                arm-hangar-wine-stable)
+                  docker buildx build --push --progress=plain --platform=linux/arm64 -f AMPDockerfileARMHangarWineStable -t greelan/amp:arm-hangar-wine-stable .
                   ;;
                 *)
                   echo "Unknown image: $IMAGE"
