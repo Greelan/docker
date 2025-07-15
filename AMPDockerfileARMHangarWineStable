@@ -11,7 +11,7 @@ ARG hangover=""
 RUN wget -q https://github.com/AndreRH/hangover/releases/download/hangover-${wine_version}${hangover:+.}${hangover}/hangover_${wine_version}${hangover:+.}${hangover}_debian${dist_version}_${dist}_arm64.tar &&\
  tar -xf hangover*.tar &&\ 
  apt-get update &&\
- DEBIAN_FRONTEND=noninteractive apt install ./hangover*.deb &&\
+ DEBIAN_FRONTEND=noninteractive apt install -fy ./hangover*.deb &&\
  rm -rf hangover*.tar hangover*.deb &&\
  apt-get clean &&\
  rm -rf /var/lib/apt/lists/*
