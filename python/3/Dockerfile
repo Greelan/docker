@@ -63,6 +63,9 @@ COPY        --from=py311 /tmp/3.11-run-deps.txt /tmp/3.11-run-deps.txt
 
 RUN         set -eux; \
             apt-get update; \
+            # Purge gdb from base image to remove conflicting Python libs
+            apt-get purge gdb -y --autoremove; \
+            \
             sort -u /tmp/*-run-deps.txt \
             | awk 'NF && $1 !~ /^#/' \
             | xargs -r apt-get install -o APT::Keep-Downloaded-Packages="false" -y --no-install-recommends; \
