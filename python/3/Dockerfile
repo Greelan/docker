@@ -79,16 +79,6 @@ RUN         set -eux; \
                 done; \
             done; \
             python${PYTHON_DEFAULT} -m pip install --no-cache-dir --upgrade pip setuptools wheel; \
-            #for p in /usr/bin/python3 /usr/bin/python${PYTHON_DEFAULT} /usr/bin/pip3 /usr/bin/pip; do \
-            #    if [ -e "$p" ] && ! dpkg-divert --list "$p" >/dev/null 2>&1; then \
-            #        dpkg-divert --quiet --local --rename --add "$p"; \
-            #    fi; \
-            #done; \
-            #rm -rf /usr/local/bin/python /usr/local/bin/python3 /usr/local/bin/pip /usr/local/bin/pip3; \
-            #ln -sf "/usr/local/bin/python${PYTHON_DEFAULT}" "/usr/local/bin/python3"; \
-            #ln -sf "/usr/local/bin/python${PYTHON_DEFAULT}" "/usr/local/bin/python"; \
-            #ln -sf "/usr/local/bin/pip${PYTHON_DEFAULT}" "/usr/local/bin/pip3"; \
-            #ln -sf "/usr/local/bin/pip${PYTHON_DEFAULT}" "/usr/local/bin/pip"; \
             for shim in python python3 python${PYTHON_DEFAULT} pip pip3 pip${PYTHON_DEFAULT}; do \
                 ln -sf "/usr/local/bin/${shim}" "/usr/bin/${shim}"; \
             done
